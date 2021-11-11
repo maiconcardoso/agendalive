@@ -1,6 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Live } from '../model/live.model';
 import { ResponsePageable } from '../model/responsePageable.model';
 
 @Injectable({
@@ -8,19 +9,13 @@ import { ResponsePageable } from '../model/responsePageable.model';
 })
 export class LiveService {
 
-  apiUrl = 'http://localhost:8080/lives';
-
-  httpOptions = {
-    header: new HttpHeaders({
-      'Content-type': 'application/json'
-    })
-  };
+  apiUrl = 'http://localhost:3004/lives';
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
-  public getLIvesWithFlag(flag: string): Observable<ResponsePageable> {
-    return this.httpClient.get<ResponsePageable>(this.apiUrl + '?flag=' + flag)
+  public getLives(): Observable<Live[]> {
+    return this.httpClient.get<Live[]>(this.apiUrl);
   }
 }
